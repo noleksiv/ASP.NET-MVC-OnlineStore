@@ -1,0 +1,139 @@
+﻿@using OnlineStore.WebUI.App_Code;
+@using OnlineStore.WebUI.Models.MainMenu;
+
+@{
+    var freeDeliveryTerm = "Free shipping for standard order over $100";
+
+    var LeftTopBar = new string[] { "Shop", "About", "Contact" };
+    
+    var RightTopBar = new Dictionary<string, string>
+    {
+        { "Help&FAQs", Url.Action("Index", "Helps", null) }
+    };
+
+    // Part of the menu which depends on if user is logged in
+    if (Session["UserName"] != null)
+    {
+        RightTopBar.Add(Session["UserName"].ToString(), Url.Action("AccountInfo", "Home"));
+        RightTopBar.Add("Log Out",  Url.Action("Logout", "Home"));
+    }
+    else
+    {
+        RightTopBar.Add("Sign In", Url.Action("Login", "Home"));
+    }
+}
+<header>
+    <!-- Header desktop -->
+    <div class="container-menu-desktop">
+
+        <!-- Topbar -->
+        <div class="top-bar">
+            <div class="content-topbar flex-sb-m h-full container">
+                <div class="left-top-bar">
+                    @freeDeliveryTerm
+                </div>
+                @MainMenu.CreateTopBar(RightTopBar, new { @class = "flex-c-m trans-04 p-lr-25" })
+            </div>
+        </div>
+
+        <div class="wrap-menu-desktop">
+            <nav class="limiter-menu-desktop container">
+                <!-- Logo desktop -->
+                @Html.ImageLink(String.Empty, "Index", "Home", null, new { @class = "logo" }, "/Visualization/images/icons/logo-01.png", new { @alt = "IMG - LOGO" })
+                <!-- Menu desktop -->
+                <div class="menu-desktop">
+                    @MainMenu.CreateMenuItems(LeftTopBar, new { @class = "main-menu" })
+                </div>
+                <!-- Icon header -->
+                @if (Session["UserName"] != null)
+                {
+                    @MainMenu.IconHeader(secondParam: "p-l-22", thirdParam: "p-l-22 p-r-11");
+                }
+            </nav>
+        </div>
+
+    </div>
+
+    <!-- Header Mobile -->
+    <div class="wrap-header-mobile">
+
+        <!-- Logo moblie -->
+        <div class="logo-mobile">
+            @Html.ImageLink(String.Empty, "Index", "Home", null, new { @class = "logo" }, "~/Visualization/images/icons/logo-01.png", new { @alt = "IMG - LOGO" })
+        </div>
+
+        <!-- Icon header -->
+        @if (Session["UserName"] != null)
+        {
+            @MainMenu.IconHeader("m-r-15", "p-l-22", "p-r-11 p-l-10")
+        }
+        <!-- Button show menu -->
+        <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+            <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+            </span>
+        </div>
+
+    </div>
+
+
+    <!-- Menu Mobile -->
+    @MainMenu.MobileMenuItems(LeftTopBar, new { @class = "main-menu-m" }, RightTopBar, new { @class = "flex-c-m p-lr-10 trans-04" }, freeDeliveryTerm)
+
+    <!-- Modal Search -->
+    <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
+        <div class="container-search-header">
+            <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
+                <img src="images/icons/icon-close2.png" alt="CLOSE">
+            </button>
+
+            @using (Html.BeginForm("method", "Home", FormMethod.Post, new { @class = "wrap-search-header flex-w p-l-15" }))
+            {
+                <button class="flex-c-m trans-04" onclick="location.href='@Url.Action("#", "#")'">
+                    <i class="zmdi zmdi-search"></i>
+                </button>
+                @Html.TextBox("search", null, new { @class = "plh3", placeholder = "Search..." });
+            }
+        </div>
+    </div>
+
+    @if (Session["UserName"] != null)
+    {
+        <div class="wrap-header-cart js-panel-cart">
+            <div class="s-full js-hide-cart"></div>
+
+            <div class="header-cart flex-col-l p-l-65 p-r-25">
+                <div class="header-cart-title flex-w flex-sb-m p-b-8">
+                    <span class="mtext-103 cl2">
+                        Your Cart
+                    </span>
+
+                    <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
+                        <i class="zmdi zmdi-close"></i>
+                    </div>
+                </div>
+
+                <div class="header-cart-content flex-w js-pscroll">
+
+                    <ul class="header-cart-wrapitem w-full"></ul>
+
+                    <div class="w-full">
+                        <div class="header-cart-total w-full p-tb-40">
+                            <!--Total: $xx.xx -->
+                        </div>
+
+                        <div class="header-cart-buttons flex-w w-full">
+
+                            @Html.ActionLink("View card", "../ShoppingCart/Index", null, new { @class = "flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10 view-cart" })
+
+                            @Html.ActionLink("Check Out", "../ShoppingCart/Index", null, new { @class = "flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10 check-out" })
+                            @*<input type="submit" id="submit-button" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10 check-out" value="Check out" style="cursor: pointer;" />*@
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>      
+    }
+</header>

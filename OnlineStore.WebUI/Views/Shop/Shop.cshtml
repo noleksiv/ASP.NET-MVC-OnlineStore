@@ -1,0 +1,205 @@
+﻿@using OnlineStore.Domain.Models
+
+@model IEnumerable<ShopItem>
+
+@{
+    ViewBag.Title = "Shop";
+
+    var ShopMenu = new string[] { "All Products", "Women", "Men", "Bag", "Shoes", "Watches" };
+
+    var SortBy = new Dictionary<string, string>
+    {
+        ["Default"] = "original-order",
+        ["Name"] = "name",
+        ["Popularity"] = "popularity",
+        ["Average rating"] = "avr",
+        ["Newness"] = "newness",
+        ["Price: Low to High"] = "price",
+        ["Price: High to Low"] = "price desc"
+    };
+
+    var Price = new Dictionary<string, string>
+    {
+        ["$0.00 - $50.00"] = ".lessThan50",
+        ["$50.00 - $100.00"] = ".lessThan100",
+        ["$100.00 - $150.00"] = ".lessThan150",
+        ["$150.00 - $200.00"] = ".lessThan200",
+        ["$200.00+"] = ".above200"
+    };
+
+    var Color = new Dictionary<string, string>
+{
+{"Black", "#222"},
+{"Blue", "#4272d7"},
+{"Grey","#b3b3b3"},
+{"Green","#00ad5f"},
+{"Red","#fa4251"},
+{ "White", "#aaa"}
+};
+
+}
+
+
+<section class="bg0 p-t-80 p-b-40">
+    <div class="container">
+
+        <div class="flex-w flex-sb-m p-b-52">
+            @ShopMenuOtions(ShopMenu)
+
+            <!-- Two buttons -->
+            <div class="flex-w flex-c-m m-tb-10">
+                @ShopButton("Filter")
+                @ShopButton("Search")
+            </div>
+
+            <!-- Search product -->
+            <div class="dis-none panel-search w-full p-t-10 p-b-15">
+                <div class="bor8 dis-flex p-l-15">
+                    <button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
+                        <i class="zmdi zmdi-search"></i>
+                    </button>
+                    <input class="mtext-107 cl2 size-114 plh2 p-r-15" id="search" data-filter="search" type="text" name="search-product" placeholder="Search">
+                </div>
+            </div>
+
+            <!-- Filter -->
+            <div class="dis-none panel-filter w-full p-t-10">
+                <div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
+                    @ShopSort("Sort By", SortBy, 1)
+                    @ShopFilter("Price", Price, 2)
+                    @ShopColorFilter("Color", Color, 3)
+                </div>
+            </div>
+        </div>
+
+        <div class="row isotope-grid">
+            @foreach (var cloth in Model)
+            {
+                @(ClothesTab.WearBlock(cloth))
+            }
+        </div>
+
+        <!-- Back to top -->
+        <div class="btn-back-to-top" id="myBtn">
+            <span class="symbol-btn-back-to-top">
+                <i class="zmdi zmdi-chevron-up"></i>
+            </span>
+        </div>
+
+        @foreach (var cloth in Model)
+        {
+            @(ClothesTab.ModelCreating(cloth))
+        }
+    </div>
+</section>
+
+@helper ShopMenuOtions(string[] shopMenu)
+{
+    <div class="flex-w flex-l-m filter-tope-group m-tb-10" id="#filters" onload="MenuSelect()">
+        <div class="filter-tope-group" data-filter-group="category">
+            <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 @(string.Compare(ShopItem.DefaultSelect,shopMenu.FirstOrDefault(),true)==0 ? "how-active1" : null)" data-filter="*">
+                @shopMenu.FirstOrDefault()
+            </button>
+            @foreach (var item in shopMenu.Skip(1))
+            {
+                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 @(string.Compare(ShopItem.DefaultSelect,item,true)==0 ? "how-active1" : null)" data-filter=".@(item.ToLower())">
+                    @item
+                </button>
+            }
+        </div>
+    </div>
+}
+
+@helper ShopButton(string name)
+{
+    <div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-@(name.ToLower())">
+        <i class="icon-@(name.ToLower()) cl2 m-r-6 fs-15 trans-04 zmdi zmdi-@(name=="Filter"?"filter-list": name.ToLower())"></i>
+        <i class="icon-close-@(name.ToLower()) cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+        @name
+    </div>
+}
+
+@helper ShopSort(string filterName, Dictionary<string, string> filterItems, int col, string idName = "sorts")
+{
+    <div class="filter-col@(col) p-r-15 p-b-27">
+
+        <div class="mtext-102 cl2 p-b-15">
+            @filterName
+        </div>
+
+        <ul id="@(idName)">
+            <li class="p-b-6">
+                <button class="filter-link stext-106 trans-04 filter-link-active" data-sort-by="@(filterItems["Default"])"> Default</button>
+                @*@Html.ActionLink(filterItems[0], "#", new { @class = "filter-link stext-106 trans-04 filter-link-active", data_sort_by = "original-order" })*@
+            </li>
+            @foreach (var item in filterItems.Skip(1))
+            {
+                <li class="p-b-6">
+                    <button class="filter-link stext-106 trans-04" data-sort-by="@(filterItems[item.Key])"> @item.Key </button>
+                    @*@Html.ActionLink(item, "#", new { @class = "filter-link stext-106 trans-04", data_sort_by = item.ToLower() })*@
+                </li>
+            }
+        </ul>
+
+    </div>
+}
+
+@helper ShopFilter(string filterName, Dictionary<string, string> filterItems, int col, string idName = "filters")
+{
+    <div class="filter-col@(col) p-r-15 p-b-27" id="@(idName)">
+
+        <div class="mtext-102 cl2 p-b-15">
+            @filterName
+        </div>
+
+        <ul class="filter-tope-group" data-filter-group="@(filterName.ToLower())">
+
+            <li class="p-b-6">
+                <button class="filter-link stext-106 trans-04 filter-link-active" data-filter="*">All</button>
+                @*@Html.ActionLink("All", "#", new { @class = "filter-link stext-106 trans-04 filter-link-active", data_filter = "*" })*@
+            </li>
+
+            @foreach (var item in filterItems)
+            {
+                <li class="p-b-6">
+                    <button class="filter-link stext-106 trans-04" data-filter="@(item.Value)">@item.Key</button>
+                    @*@Html.ActionLink(item.Key, "#", new { @class = "filter-link stext-106 trans-04", data_filter = item.Value })*@
+                </li>
+            }
+
+        </ul>
+    </div>
+}
+
+@helper ShopColorFilter(string filterName, Dictionary<string, string> filterItems, int col)
+{
+    <div class="filter-col@(col) p-r-15 p-b-27">
+        <div class="mtext-102 cl2 p-b-15">
+            filterName
+        </div>
+
+        <ul>
+            @foreach (var item in filterItems)
+            {
+                <li class="p-b-6">
+                    <span class="fs-15 lh-12 m-r-6" style="color: @(item.Value);">
+                        <i class="zmdi zmdi-circle"></i>
+                    </span>
+                    @Html.ActionLink(item.Key, "#", new { @class = "filter-link stext-106 trans-04" })
+                </li>
+            }
+        </ul>
+
+    </div>
+}
+
+<script src="@Url.Content("~/Visualization/vendor/jquery/jquery-3.2.1.min.js")"></script>
+<script type="text/javascript">
+    // select option in the menu
+    $(document).ready(function () {
+        $('button.how-active1').click();
+    });
+</script>
+
+
+

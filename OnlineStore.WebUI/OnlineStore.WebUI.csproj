@@ -1,0 +1,518 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{85A040CB-6F75-4BC7-9403-447EA927FEA2}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OnlineStore.WebUI</RootNamespace>
+    <AssemblyName>OnlineStore.WebUI</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.4\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.4\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.4\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="Visualization\css\login\main.css" />
+    <Content Include="Visualization\css\login\util.css" />
+    <Content Include="Visualization\css\main.css" />
+    <Content Include="Visualization\css\util.css" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\css\font-awesome.css" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\css\font-awesome.min.css" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\HELP-US-OUT.txt" />
+    <Content Include="Visualization\fonts\iconic\css\material-design-iconic-font.css" />
+    <Content Include="Visualization\fonts\iconic\css\material-design-iconic-font.min.css" />
+    <Content Include="Visualization\fonts\iconic\fonts\Material-Design-Iconic-Font.svg" />
+    <Content Include="Visualization\fonts\linearicons-v1.0.0\icon-font.min.css" />
+    <Content Include="Visualization\fonts\linearicons-v1.0.0\WebFont\Linearicons-Free.svg" />
+    <Content Include="Visualization\fonts\Montserrat\OFL.txt" />
+    <Content Include="Visualization\fonts\PlayfairDisplay\OFL.txt" />
+    <Content Include="Visualization\images\about-01.jpg" />
+    <Content Include="Visualization\images\about-02.jpg" />
+    <Content Include="Visualization\images\avatar-01.jpg" />
+    <Content Include="Visualization\images\banner-01.jpg" />
+    <Content Include="Visualization\images\banner-02.jpg" />
+    <Content Include="Visualization\images\banner-03.jpg" />
+    <Content Include="Visualization\images\banner-04.jpg" />
+    <Content Include="Visualization\images\banner-05.jpg" />
+    <Content Include="Visualization\images\banner-06.jpg" />
+    <Content Include="Visualization\images\banner-07.jpg" />
+    <Content Include="Visualization\images\banner-08.jpg" />
+    <Content Include="Visualization\images\banner-09.jpg" />
+    <Content Include="Visualization\images\bg-01.jpg" />
+    <Content Include="Visualization\images\bg-02.jpg" />
+    <Content Include="Visualization\images\blog-01.jpg" />
+    <Content Include="Visualization\images\blog-02.jpg" />
+    <Content Include="Visualization\images\blog-03.jpg" />
+    <Content Include="Visualization\images\blog-04.jpg" />
+    <Content Include="Visualization\images\blog-05.jpg" />
+    <Content Include="Visualization\images\blog-06.jpg" />
+    <Content Include="Visualization\images\gallery-01.jpg" />
+    <Content Include="Visualization\images\gallery-02.jpg" />
+    <Content Include="Visualization\images\gallery-03.jpg" />
+    <Content Include="Visualization\images\gallery-04.jpg" />
+    <Content Include="Visualization\images\gallery-05.jpg" />
+    <Content Include="Visualization\images\gallery-06.jpg" />
+    <Content Include="Visualization\images\gallery-07.jpg" />
+    <Content Include="Visualization\images\gallery-08.jpg" />
+    <Content Include="Visualization\images\gallery-09.jpg" />
+    <Content Include="Visualization\images\icons\favicon.png" />
+    <Content Include="Visualization\images\icons\icon-close.png" />
+    <Content Include="Visualization\images\icons\icon-close2.png" />
+    <Content Include="Visualization\images\icons\icon-email.png" />
+    <Content Include="Visualization\images\icons\icon-heart-01.png" />
+    <Content Include="Visualization\images\icons\icon-heart-02.png" />
+    <Content Include="Visualization\images\icons\icon-next.png" />
+    <Content Include="Visualization\images\icons\icon-pay-01.png" />
+    <Content Include="Visualization\images\icons\icon-pay-02.png" />
+    <Content Include="Visualization\images\icons\icon-pay-03.png" />
+    <Content Include="Visualization\images\icons\icon-pay-04.png" />
+    <Content Include="Visualization\images\icons\icon-pay-05.png" />
+    <Content Include="Visualization\images\icons\icon-prev.png" />
+    <Content Include="Visualization\images\icons\logo-01.png" />
+    <Content Include="Visualization\images\icons\logo-02.png" />
+    <Content Include="Visualization\images\icons\pin.png" />
+    <Content Include="Visualization\images\item-cart-01.jpg" />
+    <Content Include="Visualization\images\item-cart-02.jpg" />
+    <Content Include="Visualization\images\item-cart-03.jpg" />
+    <Content Include="Visualization\images\item-cart-04.jpg" />
+    <Content Include="Visualization\images\item-cart-05.jpg" />
+    <Content Include="Visualization\images\login\favicon.ico" />
+    <Content Include="Visualization\images\login\background.jpeg" />
+    <Content Include="Visualization\images\login\store.jpeg" />
+    <Content Include="Visualization\images\product-01.jpg" />
+    <Content Include="Visualization\images\product-02.jpg" />
+    <Content Include="Visualization\images\product-03.jpg" />
+    <Content Include="Visualization\images\product-04.jpg" />
+    <Content Include="Visualization\images\product-05.jpg" />
+    <Content Include="Visualization\images\product-06.jpg" />
+    <Content Include="Visualization\images\product-07.jpg" />
+    <Content Include="Visualization\images\product-08.jpg" />
+    <Content Include="Visualization\images\product-09.jpg" />
+    <Content Include="Visualization\images\product-10.jpg" />
+    <Content Include="Visualization\images\product-11.jpg" />
+    <Content Include="Visualization\images\product-12.jpg" />
+    <Content Include="Visualization\images\product-13.jpg" />
+    <Content Include="Visualization\images\product-14.jpg" />
+    <Content Include="Visualization\images\product-15.jpg" />
+    <Content Include="Visualization\images\product-16.jpg" />
+    <Content Include="Visualization\images\product-detail-01.jpg" />
+    <Content Include="Visualization\images\product-detail-02.jpg" />
+    <Content Include="Visualization\images\product-detail-03.jpg" />
+    <Content Include="Visualization\images\product-min-01.jpg" />
+    <Content Include="Visualization\images\product-min-02.jpg" />
+    <Content Include="Visualization\images\product-min-03.jpg" />
+    <Content Include="Visualization\images\slide-01.jpg" />
+    <Content Include="Visualization\images\slide-02.jpg" />
+    <Content Include="Visualization\images\slide-03.jpg" />
+    <Content Include="Visualization\images\slide-04.jpg" />
+    <Content Include="Visualization\images\slide-05.jpg" />
+    <Content Include="Visualization\images\slide-06.jpg" />
+    <Content Include="Visualization\images\slide-07.jpg" />
+    <Content Include="Visualization\images\thumb-01.jpg" />
+    <Content Include="Visualization\images\thumb-02.jpg" />
+    <Content Include="Visualization\images\thumb-03.jpg" />
+    <Content Include="Visualization\js\main.js" />
+    <Content Include="Visualization\js\map-custom.js" />
+    <Content Include="Visualization\js\minor.js" />
+    <Content Include="Visualization\js\Registration\main.js" />
+    <Content Include="Visualization\js\Registration\map-custom.js" />
+    <Content Include="Visualization\js\slick-custom.js" />
+    <Content Include="Visualization\vendor\animate\animate.css" />
+    <Content Include="Visualization\vendor\animsition\css\animsition.css" />
+    <Content Include="Visualization\vendor\animsition\css\animsition.min.css" />
+    <Content Include="Visualization\vendor\animsition\js\animsition.js" />
+    <Content Include="Visualization\vendor\animsition\js\animsition.min.js" />
+    <Content Include="Visualization\vendor\bootstrap\css\bootstrap-grid.css" />
+    <Content Include="Visualization\vendor\bootstrap\css\bootstrap-grid.min.css" />
+    <Content Include="Visualization\vendor\bootstrap\css\bootstrap-reboot.css" />
+    <Content Include="Visualization\vendor\bootstrap\css\bootstrap-reboot.min.css" />
+    <Content Include="Visualization\vendor\bootstrap\css\bootstrap.css" />
+    <Content Include="Visualization\vendor\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Visualization\vendor\bootstrap\js\bootstrap.js" />
+    <Content Include="Visualization\vendor\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Visualization\vendor\bootstrap\js\popper.js" />
+    <Content Include="Visualization\vendor\bootstrap\js\popper.min.js" />
+    <Content Include="Visualization\vendor\bootstrap\js\tooltip.js" />
+    <Content Include="Visualization\vendor\countdowntime\countdowntime.js" />
+    <Content Include="Visualization\vendor\css-hamburgers\hamburgers.css" />
+    <Content Include="Visualization\vendor\css-hamburgers\hamburgers.min.css" />
+    <Content Include="Visualization\vendor\daterangepicker\daterangepicker.css" />
+    <Content Include="Visualization\vendor\daterangepicker\daterangepicker.js" />
+    <Content Include="Visualization\vendor\daterangepicker\moment.js" />
+    <Content Include="Visualization\vendor\daterangepicker\moment.min.js" />
+    <Content Include="Visualization\vendor\isotope\isotope.pkgd.min.js" />
+    <Content Include="Visualization\vendor\jqueryui\external\jquery\jquery.js" />
+    <Content Include="Visualization\vendor\jqueryui\images\ui-icons_444444_256x240.png" />
+    <Content Include="Visualization\vendor\jqueryui\images\ui-icons_555555_256x240.png" />
+    <Content Include="Visualization\vendor\jqueryui\images\ui-icons_777620_256x240.png" />
+    <Content Include="Visualization\vendor\jqueryui\images\ui-icons_777777_256x240.png" />
+    <Content Include="Visualization\vendor\jqueryui\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Visualization\vendor\jqueryui\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Visualization\vendor\jqueryui\index.html" />
+    <Content Include="Visualization\vendor\jqueryui\jquery-ui.css" />
+    <Content Include="Visualization\vendor\jqueryui\jquery-ui.js" />
+    <Content Include="Visualization\vendor\jqueryui\jquery-ui.min.css" />
+    <Content Include="Visualization\vendor\jqueryui\jquery-ui.min.js" />
+    <Content Include="Visualization\vendor\jqueryui\jquery-ui.structure.css" />
+    <Content Include="Visualization\vendor\jqueryui\jquery-ui.structure.min.css" />
+    <Content Include="Visualization\vendor\jqueryui\jquery-ui.theme.css" />
+    <Content Include="Visualization\vendor\jqueryui\jquery-ui.theme.min.css" />
+    <Content Include="Visualization\vendor\jquery\jquery-3.2.1.min.js" />
+    <Content Include="Visualization\vendor\lightbox2\css\lightbox.css" />
+    <Content Include="Visualization\vendor\lightbox2\css\lightbox.min.css" />
+    <Content Include="Visualization\vendor\lightbox2\images\close.png" />
+    <Content Include="Visualization\vendor\lightbox2\images\loading.gif" />
+    <Content Include="Visualization\vendor\lightbox2\images\next.png" />
+    <Content Include="Visualization\vendor\lightbox2\images\prev.png" />
+    <Content Include="Visualization\vendor\lightbox2\js\lightbox-plus-jquery.js" />
+    <Content Include="Visualization\vendor\lightbox2\js\lightbox-plus-jquery.min.js" />
+    <Content Include="Visualization\vendor\lightbox2\js\lightbox.js" />
+    <Content Include="Visualization\vendor\lightbox2\js\lightbox.min.js" />
+    <Content Include="Visualization\vendor\MagnificPopup\jquery.magnific-popup.js" />
+    <Content Include="Visualization\vendor\MagnificPopup\jquery.magnific-popup.min.js" />
+    <Content Include="Visualization\vendor\MagnificPopup\magnific-popup.css" />
+    <Content Include="Visualization\vendor\parallax100\parallax100.js" />
+    <Content Include="Visualization\vendor\perfect-scrollbar\perfect-scrollbar.css" />
+    <Content Include="Visualization\vendor\perfect-scrollbar\perfect-scrollbar.min.js" />
+    <Content Include="Visualization\vendor\select2\select2.css" />
+    <Content Include="Visualization\vendor\select2\select2.js" />
+    <Content Include="Visualization\vendor\select2\select2.min.css" />
+    <Content Include="Visualization\vendor\select2\select2.min.js" />
+    <Content Include="Visualization\vendor\slick\ajax-loader.gif" />
+    <Content Include="Visualization\vendor\slick\fonts\slick.svg" />
+    <Content Include="Visualization\vendor\slick\slick-theme.css" />
+    <Content Include="Visualization\vendor\slick\slick.css" />
+    <Content Include="Visualization\vendor\slick\slick.js" />
+    <Content Include="Visualization\vendor\slick\slick.min.js" />
+    <Content Include="Visualization\vendor\sweetalert\sweetalert.min.js" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\MainMenu.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\About\AboutController.cs" />
+    <Compile Include="Controllers\Api\HomeController.cs" />
+    <Compile Include="Controllers\Blog\BlogController.cs" />
+    <Compile Include="Controllers\Contact\ContactController.cs" />
+    <Compile Include="Controllers\Home\HomeController.cs" />
+    <Compile Include="Controllers\Registration\RegistrationController.cs" />
+    <Compile Include="Controllers\ShoppingCart\ShoppingCartController.cs" />
+    <Compile Include="Controllers\Shop\ShopController.cs" />
+    <Compile Include="Database\ApplicationContext.cs" />
+    <Compile Include="Database\ContextStoreInitializer.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902211716561_TablesCreation.cs" />
+    <Compile Include="Migrations\201902211716561_TablesCreation.Designer.cs">
+      <DependentUpon>201902211716561_TablesCreation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902220639367_TableWishSelectedChanged.cs" />
+    <Compile Include="Migrations\201902220639367_TableWishSelectedChanged.Designer.cs">
+      <DependentUpon>201902220639367_TableWishSelectedChanged.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902280610516_ChangeTables.cs" />
+    <Compile Include="Migrations\201902280610516_ChangeTables.Designer.cs">
+      <DependentUpon>201902280610516_ChangeTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902280613087_ColumnRename.cs" />
+    <Compile Include="Migrations\201902280613087_ColumnRename.Designer.cs">
+      <DependentUpon>201902280613087_ColumnRename.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Banner\BannerItem.cs" />
+    <Compile Include="Models\Converter.cs" />
+    <Compile Include="Models\MainMenu\CustomHtmlHelper.cs" />
+    <Compile Include="Models\MainMenu\HeaderMenu.cs" />
+    <Compile Include="Models\MainPageParameters.cs" />
+    <Compile Include="Models\Registration\UserAccount.cs" />
+    <Compile Include="Models\ShoppingCart\City.cs" />
+    <Compile Include="Models\ShoppingCart\Country.cs" />
+    <Compile Include="Models\ShoppingCart\State.cs" />
+    <Compile Include="Models\Slider\SliderData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="App_Code\ClothesTab.cshtml" />
+    <Content Include="Models\ShoppingCart\ListOfCountries.json" />
+    <None Include="packages.config" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\fonts\FontAwesome.otf" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\less\animated.less" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\less\core.less" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\less\fixed-width.less" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\less\font-awesome.less" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\less\icons.less" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\less\larger.less" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\less\list.less" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\less\mixins.less" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\less\path.less" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\less\screen-reader.less" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\less\stacked.less" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\less\variables.less" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\scss\_animated.scss" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\scss\_core.scss" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\scss\_icons.scss" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\scss\_larger.scss" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\scss\_list.scss" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\scss\_mixins.scss" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\scss\_path.scss" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\scss\_stacked.scss" />
+    <Content Include="Visualization\fonts\font-awesome-4.7.0\scss\_variables.scss" />
+    <Content Include="Visualization\fonts\iconic\fonts\Material-Design-Iconic-Font.eot" />
+    <Content Include="Visualization\fonts\iconic\fonts\Material-Design-Iconic-Font.ttf" />
+    <Content Include="Visualization\fonts\iconic\fonts\Material-Design-Iconic-Font.woff" />
+    <Content Include="Visualization\fonts\iconic\fonts\Material-Design-Iconic-Font.woff2" />
+    <Content Include="Visualization\fonts\linearicons-v1.0.0\WebFont\Linearicons-Free.eot" />
+    <Content Include="Visualization\fonts\linearicons-v1.0.0\WebFont\Linearicons-Free.ttf" />
+    <Content Include="Visualization\fonts\linearicons-v1.0.0\WebFont\Linearicons-Free.woff" />
+    <Content Include="Visualization\fonts\linearicons-v1.0.0\WebFont\Linearicons-Free.woff2" />
+    <Content Include="Visualization\fonts\Montserrat\Montserrat-Black.ttf" />
+    <Content Include="Visualization\fonts\Montserrat\Montserrat-BlackItalic.ttf" />
+    <Content Include="Visualization\fonts\Montserrat\Montserrat-Bold.ttf" />
+    <Content Include="Visualization\fonts\Montserrat\Montserrat-BoldItalic.ttf" />
+    <Content Include="Visualization\fonts\Montserrat\Montserrat-ExtraBold.ttf" />
+    <Content Include="Visualization\fonts\Montserrat\Montserrat-ExtraBoldItalic.ttf" />
+    <Content Include="Visualization\fonts\Montserrat\Montserrat-ExtraLight.ttf" />
+    <Content Include="Visualization\fonts\Montserrat\Montserrat-ExtraLightItalic.ttf" />
+    <Content Include="Visualization\fonts\Montserrat\Montserrat-Italic.ttf" />
+    <Content Include="Visualization\fonts\Montserrat\Montserrat-Light.ttf" />
+    <Content Include="Visualization\fonts\Montserrat\Montserrat-LightItalic.ttf" />
+    <Content Include="Visualization\fonts\Montserrat\Montserrat-Medium.ttf" />
+    <Content Include="Visualization\fonts\Montserrat\Montserrat-MediumItalic.ttf" />
+    <Content Include="Visualization\fonts\Montserrat\Montserrat-Regular.ttf" />
+    <Content Include="Visualization\fonts\Montserrat\Montserrat-SemiBold.ttf" />
+    <Content Include="Visualization\fonts\Montserrat\Montserrat-SemiBoldItalic.ttf" />
+    <Content Include="Visualization\fonts\Montserrat\Montserrat-Thin.ttf" />
+    <Content Include="Visualization\fonts\Montserrat\Montserrat-ThinItalic.ttf" />
+    <Content Include="Visualization\fonts\PlayfairDisplay\PlayfairDisplay-Black.ttf" />
+    <Content Include="Visualization\fonts\PlayfairDisplay\PlayfairDisplay-BlackItalic.ttf" />
+    <Content Include="Visualization\fonts\PlayfairDisplay\PlayfairDisplay-Bold.ttf" />
+    <Content Include="Visualization\fonts\PlayfairDisplay\PlayfairDisplay-BoldItalic.ttf" />
+    <Content Include="Visualization\fonts\PlayfairDisplay\PlayfairDisplay-Italic.ttf" />
+    <Content Include="Visualization\fonts\PlayfairDisplay\PlayfairDisplay-Regular.ttf" />
+    <Content Include="Visualization\fonts\Poppins\Poppins-Black.ttf" />
+    <Content Include="Visualization\fonts\Poppins\Poppins-BlackItalic.ttf" />
+    <Content Include="Visualization\css\fonts\Poppins-Bold.ttf" />
+    <Content Include="Visualization\fonts\Poppins\Poppins-BoldItalic.ttf" />
+    <Content Include="Visualization\fonts\Poppins\Poppins-ExtraBold.ttf" />
+    <Content Include="Visualization\fonts\Poppins\Poppins-ExtraBoldItalic.ttf" />
+    <Content Include="Visualization\fonts\Poppins\Poppins-ExtraLight.ttf" />
+    <Content Include="Visualization\fonts\Poppins\Poppins-ExtraLightItalic.ttf" />
+    <Content Include="Visualization\fonts\Poppins\Poppins-Italic.ttf" />
+    <Content Include="Visualization\fonts\Poppins\Poppins-Light.ttf" />
+    <Content Include="Visualization\fonts\Poppins\Poppins-LightItalic.ttf" />
+    <Content Include="Visualization\css\fonts\Poppins-Medium.ttf" />
+    <Content Include="Visualization\fonts\Poppins\Poppins-MediumItalic.ttf" />
+    <Content Include="Visualization\css\fonts\Poppins-Regular.ttf" />
+    <Content Include="Visualization\css\fonts\Poppins-SemiBold.ttf" />
+    <Content Include="Visualization\fonts\Poppins\Poppins-SemiBoldItalic.ttf" />
+    <Content Include="Visualization\fonts\Poppins\Poppins-Thin.ttf" />
+    <Content Include="Visualization\fonts\Poppins\Poppins-ThinItalic.ttf" />
+    <Content Include="Visualization\vendor\bootstrap\css\bootstrap-grid.css.map" />
+    <Content Include="Visualization\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
+    <Content Include="Visualization\vendor\bootstrap\css\bootstrap-reboot.css.map" />
+    <Content Include="Visualization\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <Content Include="Visualization\vendor\bootstrap\css\bootstrap.css.map" />
+    <Content Include="Visualization\vendor\bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="Visualization\vendor\lightbox2\js\lightbox-plus-jquery.min.map" />
+    <Content Include="Visualization\vendor\lightbox2\js\lightbox.min.map" />
+    <Content Include="Visualization\vendor\slick\config.rb" />
+    <Content Include="Visualization\vendor\slick\fonts\slick.eot" />
+    <Content Include="Visualization\vendor\slick\fonts\slick.ttf" />
+    <Content Include="Visualization\vendor\slick\fonts\slick.woff" />
+    <Content Include="Visualization\vendor\slick\slick-theme.less" />
+    <Content Include="Visualization\vendor\slick\slick-theme.scss" />
+    <Content Include="Visualization\vendor\slick\slick.less" />
+    <Content Include="Visualization\vendor\slick\slick.scss" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Shop\Shop.cshtml" />
+    <Content Include="Views\About\About.cshtml" />
+    <Content Include="Views\Contact\Contact.cshtml" />
+    <Content Include="Views\Registration\Registration.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\ShoppingCart\ShoppingCart.cshtml" />
+    <Content Include="Views\Shared\_RestrictedHeader.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\Blog\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OnlineStore.Domain\OnlineStore.Domain.csproj">
+      <Project>{295dd1f5-fb31-4443-b1df-fe5fb68084e3}</Project>
+      <Name>OnlineStore.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201902211716561_TablesCreation.resx">
+      <DependentUpon>201902211716561_TablesCreation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902220639367_TableWishSelectedChanged.resx">
+      <DependentUpon>201902220639367_TableWishSelectedChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902280610516_ChangeTables.resx">
+      <DependentUpon>201902280610516_ChangeTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902280613087_ColumnRename.resx">
+      <DependentUpon>201902280613087_ColumnRename.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50268</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:50268/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

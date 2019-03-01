@@ -1,0 +1,435 @@
+﻿@using OnlineStore.WebUI.App_Code;
+@using OnlineStore.WebUI.Models.MainMenu;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/Visualization/images/icons/favicon.png" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/fonts/linearicons-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/vendor/slick/slick.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/vendor/MagnificPopup/magnific-popup.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Visualization/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body class="animsition">
+
+    @{ Html.RenderPartial("_Header"); }
+
+    <!-- Slider -->
+    <!-- Banner -->
+    <!-- Product -->
+
+    @RenderBody()
+
+    @{ Html.RenderPartial("_Footer"); }
+
+    <!-- #region Scripts -->
+    <!--===============================================================================================-->
+    <script src="@Url.Content("~/Visualization/vendor/jquery/jquery-3.2.1.min.js")"></script>
+    <!--===============================================================================================-->
+    <script src="@Url.Content("~/Visualization/vendor/animsition/js/animsition.min.js")"></script>
+    <!--===============================================================================================-->
+    <script src="@Url.Content("~/Visualization/vendor/bootstrap/js/popper.js")"></script>
+    <script src="@Url.Content("~/Visualization/vendor/bootstrap/js/bootstrap.min.js")"></script>
+    <!--===============================================================================================-->
+    <script src="~/Visualization/vendor/select2/select2.min.js"></script>
+    <script>
+        $(".js-select2").each(function () {
+            $(this).select2({
+                minimumResultsForSearch: 20,
+                dropdownParent: $(this).next('.dropDownSelect2')
+            });
+        })
+    </script>
+    <!--===============================================================================================-->
+    <script src="@Url.Content("~/Visualization/vendor/daterangepicker/moment.min.js")"></script>
+    <script src="@Url.Content("~/Visualization/vendor/daterangepicker/daterangepicker.js")"></script>
+    <!--===============================================================================================-->
+    <script src="@Url.Content("~/Visualization/vendor/slick/slick.min.js")"></script>
+    <script src="@Url.Content("~/Visualization/js/slick-custom.js")"></script>
+    <!--===============================================================================================-->
+    <script src="@Url.Content("~/Visualization/vendor/parallax100/parallax100.js")"></script>
+    <script>
+        $('.parallax100').parallax100();
+    </script>
+    <!--===============================================================================================-->
+    <script src="@Url.Content("~/Visualization/vendor/MagnificPopup/jquery.magnific-popup.min.js")"></script>
+    <script>
+        $('.gallery-lb').each(function () { // the containers for all your galleries
+            $(this).magnificPopup({
+                delegate: 'a', // the selector for gallery item
+                type: 'image',
+                gallery: {
+                    enabled: true
+                },
+                mainClass: 'mfp-fade'
+            });
+        });
+    </script>
+    <!--===============================================================================================-->
+    <script src="@Url.Content("~/Visualization/vendor/isotope/isotope.pkgd.min.js")"></script>
+
+    <!--========================== Add and remove from wishlist ==========================================-->
+
+    @if (Session["UserName"] != null)
+    {
+        <script src="@Url.Content("~/Visualization/vendor/sweetalert/sweetalert.min.js")"></script>
+        <script>     
+
+            // click on the clothes plate (pre-view)
+            $('.js-addwish-b2').click(function () {
+                // if item isn't in your wishlist
+                var root = $(this);
+
+                var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
+                var clothId = $(this).parent().parent().find('.js-name-b2').attr('id');
+                var className = $(this).parent().parent().find('.js-name-b2').attr('class');
+                var nameProduct_ = className.substring(className.lastIndexOf(' '), className.length);
+
+                var size = $("#size.item-" + nameProduct_.trim() + " option:selected").text();
+                var color = $("#color.item-" + nameProduct_.trim() + " option:selected").text();               
+
+                var obj = {
+                    Name: nameProduct.replace('\n', '').trim(),
+                    ClothId: clothId,
+                    Color: color,
+                    Size: size
+                };
+
+                if ($(this).hasClass('added-to-wishlist') == false) {                    
+
+                    $.ajax({
+                        url: '/Home/AddToWishList',
+                        dataType: 'json',
+                        data: obj,
+                        type: "POST",
+                        success: function (result) {
+                            if (result.success) {
+                                swal(nameProduct, "Is added to wishlist !", "success");
+
+                                // select heart
+                                root.addClass("added-to-wishlist");
+                                root.addClass('js-addedwish-b2');
+
+                                // select clothes in the detail window (full-viewe)
+                                SelectInDetailedView(nameProduct.trim().replace(/\s+/g, '-').toLowerCase());
+                            }
+                            else {
+                                swal("You already have an item in the wishlist !", nameProduct, "error");
+                            }
+                        },
+                        error: function () {
+                            swal("Isn't added to wishlist !", nameProduct, "error");
+                        }
+                    });
+                  
+                } else {
+                   
+                    $(this).removeClass("added-to-wishlist");              
+                  
+                    $.ajax({
+                        url: '/Home/RemoveFromWishList',
+                        dataType: 'json',
+                        data: obj,
+                        type: "POST",
+                        success: function (result) {
+                            if (result.success) {
+                                swal(nameProduct, "Item was deleted successfully !", "success");
+                                root.removeClass('js-addedwish-b2');
+
+                                RemoveFromDetailedView(nameProduct.trim().replace(/\s+/g, '-').toLowerCase());
+                            }
+                            else {
+                                swal("Smth went wrong !", "Error!", "error");
+                            }
+                        },
+                        error: function () {
+                            swal("Isn't added to wishlist !", nameProduct, "error");
+                        }
+                    });               
+                }
+
+                function SelectInDetailedView(name_) {
+                    var heart = $('div.wrap-modal-' + name_ + ' :first-child').find('.js-addwish-detail').parent();                   
+                    heart.addClass("added-to-wishlist");     
+                    heart.addClass("js-addedwish-detail");                                
+                }
+
+                function RemoveFromDetailedView(name_) {
+                    var heart = $('.wrap-modal-' + name_ + ' :first-child').find('.js-addwish-detail').parent();                   
+                    heart.removeClass("added-to-wishlist");
+                    heart.removeClass("js-addedwish-detail");                   
+                }
+
+            });
+
+            // click on the detailed clothes
+            $('.js-addwish-detail').click(function () {
+                var root = $(this).parent().parent().parent();
+                
+                var nameProduct = $(root).find('.js-name-detail').text();
+                var clothId = $(root).attr('id');
+
+                var className = $(root).attr('class');
+                var nameProduct_ = className.substring(className.lastIndexOf(' '), className.length);
+
+                var size = $("#size.item-" + nameProduct_.trim() + " option:selected").text();
+                var color = $("#color.item-" + nameProduct_.trim() + " option:selected").text();
+
+                var obj = {
+                    Name: nameProduct.replace('\n', '').trim(),
+                    ClothId: clothId,
+                    Color: color,
+                    Size: size
+                };
+
+                if ($(this).parent().hasClass('added-to-wishlist') == false) {
+
+                    $.ajax({
+                        url: '/Home/AddToWishList',
+                        dataType: 'json',
+                        data: obj,
+                        type: "POST",
+                        success: function (result) {
+                            if (result.success) {
+                                swal(nameProduct, "Is added to wishlist !", "success");
+
+                                // select heart
+                                root.find('a.js-addwish-detail').parent().addClass("added-to-wishlist");
+                                root.find('a.js-addwish-detail').parent().addClass('js-addedwish-detail');
+
+                                // select clothes in the detail window (full-view)
+                                SelectInPreView(nameProduct.trim().replace(/\s+/g, '-').toLowerCase());
+                            }
+                            else {
+                                swal("You already have an item in the wishlist !", nameProduct, "error");
+                            }
+                        },
+                        error: function () {
+                            swal("Isn't added to wishlist !", nameProduct, "error");
+                        }
+                    });
+
+                } else {
+
+                    root.find('.js-addwish-detail').parent().removeClass("added-to-wishlist");                    
+
+                    $.ajax({
+                        url: '/Home/RemoveFromWishList',
+                        dataType: 'json',
+                        data: obj,
+                        type: "POST",
+                        success: function (result) {
+                            if (result.success) {
+                                swal(nameProduct, "Item was deleted successfully !", "success");
+                                root.find('.js-addwish-detail').parent().removeClass('js-addedwish-detail');
+
+                                RemoveFromPreView(nameProduct.trim().replace(/\s+/g, '-').toLowerCase());
+                            }
+                            else {
+                                swal("Smth went wrong !", "Error!", "error");
+                            }
+                        },
+                        error: function () {
+                            swal("Isn't added to wishlist !", nameProduct, "error");
+                        }
+                    });
+                }
+
+                function SelectInPreView(name_) {
+                    var heart = $('div[class="block2 item-' + name_ + '"]').find('.js-addwish-b2');                    
+                    
+                    heart.addClass("js-addedwish-b2");
+                    heart.addClass("added-to-wishlist");
+                }
+
+                function RemoveFromPreView(name_) {
+                    var heart = $('div[class="block2 item-' + name_ + '"]').find('.js-addwish-b2');
+                   
+                    heart.removeClass("js-addedwish-b2");
+                    heart.removeClass("added-to-wishlist");
+                }
+            });
+        </script>
+    }
+    <!--===============================================================================================-->
+    <script src="@Url.Content("~/Visualization/vendor/perfect-scrollbar/perfect-scrollbar.min.js")"></script>
+    <script>
+        $('.js-pscroll').each(function () {
+            $(this).css('position', 'relative');
+            $(this).css('overflow', 'hidden');
+            var ps = new PerfectScrollbar(this, {
+                wheelSpeed: 1,
+                scrollingThreshold: 1000,
+                wheelPropagation: false,
+            });
+
+            $(window).on('resize', function () {
+                ps.update();
+            })
+        });
+    </script>
+    @if (Session["UserName"] != null)
+    {
+    <!--========================================= Load customer's selected cloths ==================================================-->
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $.ajax({
+                url: '/Home/GetSelectedClothes',
+                type: 'GET',
+                dataType: 'json',
+                success: function (objArray) {
+                    if (objArray != null) {
+                        $.each(objArray, function (key, data) {
+                            $('.header-cart-content ul').append(
+                                $('<li>').addClass("header-cart-item flex-w flex-t m-b-12 item-" + data.Name_).append(
+                                    $('<div>').addClass("header-cart-item-img item-" + data.Name_).append(
+                                        $('<img>').attr({ id: "cart-img", src: data.TitleImg.replace('~', '') })
+                                    )).append(
+                                        $('<div>').addClass("header-cart-item-txt p-t-8").append(
+                                            $('<a>').addClass("header-cart-item-name m-b-18 hov-cl1 trans-04").attr({ href: '#', name: 'Name' }).append(data.Name)
+                                        )
+                                            .append(
+                                                $('<span>').addClass("header-cart-item-info").append(data.Number + " x " + data.Price)
+                                            )
+                                    ).append(
+                                        // addition data
+                                        $('<div>').hide().append(
+                                            $('<p>').addClass('header-cart-item-id').append(data.Id)
+                                        ).append(
+                                            $('<p>').addClass('header-cart-item-size').append(data.Size)
+                                        ).append(
+                                            $('<p>').addClass('header-cart-item-color').append(data.Color)
+                                        )
+                                    ));
+                        });
+                        totalSum();
+                    }
+                }
+            });
+
+            $.ajax({
+                url: '/Home/GetWishedIds',
+                type: 'GET',
+                dataType: 'json',
+                success: function (objArray) {
+                    var cloth = objArray.data;
+                    if (cloth != null) {
+
+                        // select clothes in the wishlist during the load
+                        $.each(cloth, function (key, item) {
+                            var name_ = item.Name.replace(/\s+/g, '-').toLowerCase();
+                            var aTeg = $('.item-' + name_ + ' .like-icon').find('.js-addwish-b2');
+                            aTeg.addClass('added-to-wishlist');
+                            aTeg.addClass('js-addedwish-b2');
+
+                            aTeg = $('div.wrap-modal-' + name_ + ' :first-child').find('.js-addwish-detail').parent();
+                            aTeg.addClass("js-addedwish-detail");
+                            aTeg.addClass("added-to-wishlist");
+
+                        });
+
+                    }
+                }
+            });
+
+            function totalSum() {
+                var quantity = $('.header-cart-item-info').length;
+
+                if (quantity > 0) {
+
+                    var sum = 0.0;
+
+                    $('.header-cart-item-info').each(function () {
+                        var countPrice = divideByCountPrice($(this).text());
+                        sum += parseInt(countPrice[0]) * parseFloat(countPrice[1]);
+                    });
+                    $('div[class="header-cart-total w-full p-tb-40"]').text("Total: $" + sum.toFixed(2));
+                }
+                else {
+                    $('div[class="header-cart-total w-full p-tb-40"]').text("");
+                }
+                $('.quantity-in-cart').attr("data-notify", quantity.toString());
+            }
+
+
+            function divideByCountPrice(str) {
+                //alert(str);
+                var position = str.indexOf(" x ");
+
+                return [str.substring(0, position), str.substring(position + 2, str.length).replace('$', '').replace(",", '.')]
+            }
+
+            // remove item from the cart
+            $('.header-cart-content').on('click', 'div.header-cart-item-img', function () {
+                var name = $(this).parent().find("a").text();
+                var color = $(this).parent().find(".header-cart-item-color").text();
+                var size = $(this).parent().find(".header-cart-item-size").text();
+                var id = $(this).parent().find(".header-cart-item-id").text();
+
+                alert(id + size + color + name);
+
+                $(this).parent().remove();
+                totalSum();
+                deleteItemFromCart(name, color, size, id)
+            });
+
+        });
+
+        // remove item from cart
+
+        function deleteItemFromCart(name_, color_, size_, id_) {
+            var arr = {
+                Name: name_,
+                Color: color_,
+                Size: size_,
+                Id: id_
+            }
+            $.ajax({
+                url: '/Home/DeleteItemFromCart',
+                //contentType: 'application/json',
+                dataType: 'json',
+                data: { "json": JSON.stringify(arr) },
+                type: "POST"
+            });
+        }
+
+    </script>
+    }    
+    <!--===============================================================================================-->
+    <!--  asp-append-version provides a cache refreshment -->
+    <script src="@Url.Content("~/Visualization/js/main.js")" type="text/javascript" asp-append-version="true"></script>
+    <script src="@Url.Content("~/Visualization/js/minor.js")" type="text/javascript" asp-append-version="true"></script>
+    <!-- #endregion -->
+
+</body>
+</html>

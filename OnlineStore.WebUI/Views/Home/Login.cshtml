@@ -1,0 +1,113 @@
+﻿@model OnlineStore.WebUI.Models.UserAccount
+
+@{
+    Layout = null;
+    ViewBag.Title = "Login";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/Visualization/images/login/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/fonts/linearicons-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/css/login/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Visualization/css/login/main.css">
+    <!--===============================================================================================-->
+</head>
+<body style="background-color: #999999;">
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="login100-more" style="background-image: url('/Visualization/images/login/store.jpeg');"></div>
+            <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
+
+                <!-- breadcrumb -->
+                <div class="bread-crumb flex-w p-b-60">
+                    <a href="@Url.Action("Index", "Home")" class="stext-109 cl8">
+                        Home
+                        <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+                    </a>
+
+                    <span class="stext-109 cl4">
+                        Login
+                    </span>
+                </div>
+
+                <span class="login100-form-title p-b-60">
+                    Log In
+                </span>
+
+                @using (Html.BeginForm("Login", "Home", null, FormMethod.Post, new { @class = "login100-form validate-form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "label-input100" })
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "input100", placeholder = "Email addess..." } })
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Password is required (more than 6 characters)">
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "label-input100" })
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "input100", placeholder = "******" } })
+                        <span class="focus-input100"></span>
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <input type="submit" value="Sign In" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04" />
+                    </div>
+
+                    <div class="flex-m w-full p-b-33">
+                        <div class="contact100-form-checkbox p-t-33">
+                                <span class="txt1">
+                                    If you hane not an account?  @Html.ActionLink("Registration", "../Registration/Index", null, new { @class = "txt3 hov1 p-r-30 p-t-10 p-b-10 p-l-30" })
+                                </span>                            
+                        </div>
+                    </div>                
+                       
+                }
+            </div>
+        </div>
+    </div>
+    <!--===============================================================================================-->
+    <script src="@Url.Content("~/Visualization/vendor/jquery/jquery-3.2.1.min.js")" type="text/javascript" asp-append-version="true"></script>
+    <!--===============================================================================================-->
+    <script src="@Url.Content("~/Visualization/vendor/animsition/js/animsition.min.js")" type="text/javascript" asp-append-version="true"></script>
+    <!--===============================================================================================-->
+    <script src="@Url.Content("~/Visualization/vendor/bootstrap/js/popper.js")" type="text/javascript" asp-append-version="true"></script>
+    <script src="@Url.Content("~/Visualization/vendor/bootstrap/js/bootstrap.min.js")" type="text/javascript" asp-append-version="true"></script>
+    <!--===============================================================================================-->
+    <script src="@Url.Content("~/Visualization/vendor/select2/select2.min.js")" type="text/javascript" asp-append-version="true"></script>
+    <!--===============================================================================================-->
+    <script src="@Url.Content("~/Visualization/vendor/daterangepicker/moment.min.js")" type="text/javascript" asp-append-version="true"></script>
+    <script src="@Url.Content("~/Visualization/vendor/daterangepicker/daterangepicker.js")" type="text/javascript" asp-append-version="true"></script>
+    <!--===============================================================================================-->
+    <script src="@Url.Content("~/Visualization/vendor/countdowntime/countdowntime.js")" type="text/javascript" asp-append-version="true"></script>
+    <!--===============================================================================================-->
+    <script src="@Url.Content("~/Visualization/js/Registration/main.js")" type="text/javascript" asp-append-version="true"></script>
+
+</body>
+</html>

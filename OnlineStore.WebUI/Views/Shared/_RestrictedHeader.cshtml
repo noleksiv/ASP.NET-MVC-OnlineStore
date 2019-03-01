@@ -1,0 +1,339 @@
+﻿@using OnlineStore.WebUI.App_Code;
+@using OnlineStore.WebUI.Models.MainMenu;
+
+@{
+    Layout = null;
+}
+
+@{
+    var freeDeliveryTerm = "Free shipping for standard order over $100";
+
+    var LeftTopBar = new string[] { "Shop", "About", "Contact" };
+
+    var RightTopBar = new Dictionary<string, string>
+    {
+    { "Help&FAQs", Url.Action("Index", "Helps", null) }
+    };
+
+    // Part of the menu which depends on if user is logged in
+    if (Session["UserName"] != null)
+    {
+        RightTopBar.Add(Session["UserName"].ToString(), Url.Action("AccountInfo", "Home"));
+        RightTopBar.Add("Log Out", Url.Action("Logout", "Home"));
+    }
+    else
+    {
+        RightTopBar.Add("Sign In", Url.Action("Login", "Home"));
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ShoppingCart</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/Visualization/images/icons/favicon.png" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/fonts/linearicons-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Visualization/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Visualization/css/main.css">
+    <!--===============================================================================================-->
+</head>
+
+<body class="animsition">
+
+    <header>
+        <!-- Header desktop -->
+        <div class="container-menu-desktop">
+
+            <!-- Topbar -->
+            <div class="top-bar">
+                <div class="content-topbar flex-sb-m h-full container">
+                    <div class="left-top-bar">
+                        @freeDeliveryTerm
+                    </div>
+                    @MainMenu.CreateTopBar(RightTopBar, new { @class = "flex-c-m trans-04 p-lr-25" })
+                </div>
+            </div>
+
+            <div class="wrap-menu-desktop">
+                <nav class="limiter-menu-desktop container">
+                    <!-- Logo desktop -->
+                    @Html.ImageLink(String.Empty, "Index", "Home", null, new { @class = "logo" }, "/Visualization/images/icons/logo-01.png", new { @alt = "IMG - LOGO" })
+                    <!-- Menu desktop -->
+                    <div class="menu-desktop">
+                        @MainMenu.CreateMenuItems(LeftTopBar, new { @class = "main-menu" })
+                    </div>
+                </nav>
+            </div>
+
+        </div>
+
+        <!-- Header Mobile -->
+        <div class="wrap-header-mobile">
+
+            <!-- Logo moblie -->
+            <div class="logo-mobile">
+                @Html.ImageLink(String.Empty, "Index", "Home", null, new { @class = "logo" }, "~/Visualization/images/icons/logo-01.png", new { @alt = "IMG - LOGO" })
+            </div>
+            <!-- Button show menu -->
+            <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+                <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                </span>
+            </div>
+
+        </div>
+
+
+        <!-- Menu Mobile -->
+        @MainMenu.MobileMenuItems(LeftTopBar, new { @class = "main-menu-m" }, RightTopBar, new { @class = "flex-c-m p-lr-10 trans-04" }, freeDeliveryTerm)
+
+        <!-- Modal Search -->
+        <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
+            <div class="container-search-header">
+                <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
+                    <img src="images/icons/icon-close2.png" alt="CLOSE">
+                </button>
+            </div>
+        </div>
+    </header>
+
+    @RenderBody()
+
+    @{ Html.RenderPartial("_Footer"); }
+
+    <!-- #region Scripts -->
+    <!--===============================================================================================-->
+    <script src="@Url.Content("~/Visualization/vendor/jquery/jquery-3.2.1.min.js")"></script>
+    <!--===============================================================================================-->
+    <script src="@Url.Content("~/Visualization/vendor/animsition/js/animsition.min.js")"></script>
+    <!--===============================================================================================-->
+    <script src="@Url.Content("~/Visualization/vendor/bootstrap/js/popper.js")"></script>
+    <script src="@Url.Content("~/Visualization/vendor/bootstrap/js/bootstrap.min.js")"></script>
+    <!--===============================================================================================-->
+    <script src="@Url.Content("~/Visualization/vendor/select2/select2.min.js")"></script>
+    <script>
+        $(".js-select2").each(function () {
+            $(this).select2({
+                minimumResultsForSearch: 20,
+                dropdownParent: $(this).next('.dropDownSelect2')
+            });
+        })
+    </script>
+    <!--===============================================================================================-->
+    <script src="@Url.Content("~/Visualization/vendor/MagnificPopup/jquery.magnific-popup.min.js")"></script>
+    <!--  asp-append-version provides a cache refreshment -->
+    <script src="@Url.Content("~/Visualization/js/main.js")" type="text/javascript" asp-append-version="true"></script>pend-version="true"></script>
+    <!-- #endregion -->
+    <!--===============================================================================================-->
+    <script src="@Url.Content("~/Visualization/vendor/perfect-scrollbar/perfect-scrollbar.min.js")"></script>
+    <script>
+        $('.js-pscroll').each(function () {
+            $(this).css('position', 'relative');
+            $(this).css('overflow', 'hidden');
+            var ps = new PerfectScrollbar(this, {
+                wheelSpeed: 1,
+                scrollingThreshold: 1000,
+                wheelPropagation: false,
+            });
+
+            $(window).on('resize', function () {
+                ps.update();
+            })
+        });
+    </script>
+    <!-- #region Scripts -->
+
+    <script src="@Url.Content("~/Visualization/vendor/sweetalert/sweetalert.min.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: '/ShoppingCart/Checkout',
+                type: 'GET',
+                dataType: 'json',
+                success: function (objArray) {
+                    if (objArray != null) {
+                        $.each(objArray, function (key, data) {
+                            $('.table-shopping-cart tbody').append(
+                                $('<tr>').addClass('table_row').append(
+                                    $('<td>').addClass('column-1').append(
+                                        $('<div>').addClass('how-itemcart1').append(
+                                            $('<img>').attr({ "alt": "IMG", "src": data.TitleImg.replace('~', '') })
+                                        )
+                                    )
+                                ).append(
+                                    $('<td>').addClass('column-2').attr("id", data.Id).append(data.Name)
+                                ).append(
+                                    $('<td>').addClass('column-3').append('$ ' + data.Price)
+                                ).append(
+                                    $('<td>').addClass('column-4').append(
+                                        $('<div>').addClass('wrap-num-product flex-w m-l-auto m-r-0').append(
+                                            $('<div>').addClass('btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m down-number').append(
+                                                $('<i>').addClass('fs-16 zmdi zmdi-minus')
+                                            )
+                                        ).append(
+                                            $('<input>').addClass('mtext-104 cl3 txt-center num-product').attr({ "type": "number", "name": "num-product1", "min": "1", "max": data.Quantity }).val(data.Number)
+                                        ).append(
+                                            $('<div>').addClass('btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m upper-number').append(
+                                                $('<i>').addClass('fs-16 zmdi zmdi-plus')
+                                            )
+                                        )
+                                    )
+                                ).append(
+                                    $('<td>').addClass('column-5').append('$ ' + data.Number * data.Price)
+                                ));
+                        });
+
+                        totalSum();
+                    }
+
+                }
+            });
+
+        });
+        /*===============Delete item==========================================*/
+
+        // remove item from the cart
+        $('.table-shopping-cart ').on('click', 'div.how-itemcart1', function () {
+            $(this).parent().parent().remove();
+            totalSum();
+        });
+
+        /*======================Cart manipulation==============================
+            [ -/+ num product ]*/
+
+        $('.table-shopping-cart').on('click', 'div.btn-num-product-down', function () {
+
+            var min = parseInt($(this).parent().find(".num-product").attr("min"));
+
+            var numProduct = Number($(this).next().val());
+            if (numProduct > min) {
+                $(this).next().val(numProduct - 1);
+                totalSumInRow($(this).parent().parent());
+                totalSum();
+            }
+        });
+
+        $('.table-shopping-cart').on('click', 'div.btn-num-product-up', function () {
+
+            var max = parseInt($(this).parent().find(".num-product").attr("max"));
+
+            var numProduct = Number($(this).prev().val());
+            if (numProduct < max) {
+                $(this).prev().val(numProduct + 1);
+                totalSumInRow($(this).parent().parent());
+                totalSum();
+            }
+        });
+
+        /*==================================================================*/
+        function totalSumInRow(root) {
+
+            var price = parseFloat($(root).parent().find("td.column-3").html().replace('$ ', ''));
+            var quantity = parseInt($(root).find("input.num-product").val());
+            var sum = (price * quantity).toFixed(2);
+
+            $(root).parent().find("td.column-5").text('$ ' + sum);
+        }
+
+        function totalSum() {
+
+            var prices = $('.table-shopping-cart');
+            var sum = 0.0;
+
+            $('.table-shopping-cart .table_row').each(function () {
+                sum += parseFloat($(this).find('td.column-5').text().replace('$ ', ''));
+            });
+
+            if (sum > 0) {
+                $('div.flex-w.flex-t.bor12.p-b-13').find('span.subtotal-value').text('$ ' + sum.toFixed(2));
+                $('div.flex-w.flex-t.p-t-27.p-b-33').find('span.total-sum-value').text('$ ' + ((sum > 100) ? sum : sum + 15).toFixed(2));
+            }
+            else {
+                $('div.flex-w.flex-t.bor12.p-b-13').find('span.subtotal-value').text('');
+                $('div.flex-w.flex-t.p-t-27.p-b-33').find('span.total-sum-value').text('');
+
+                $('div.col-sm-10.col-lg-7.col-xl-5.m-lr-auto.m-b-50 *').attr('disabled', 'disabled');
+            }
+
+        }
+        /*==================================================================*/
+
+        $('.update-cart').click(function () {
+            //var arr = [];
+            var arr = new Array();
+
+            $('.table-shopping-cart .table_row').each(function () {
+                // get id
+
+                //var obj = {};
+                var obj = new Object();
+
+                obj.Id = $(this).find('td.column-2').attr("id");
+                obj.Name = $(this).find('td.column-2').html();
+                obj.Number = $(this).find('input.mtext-104.cl3.txt-center.num-product').val();
+
+                arr.push(obj);
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: '/ShoppingCart/UpdateCart',
+                contentType: "application/json",
+                data: JSON.stringify(arr),
+                dataType: 'json',
+                success: function (data) { swal("Cart was changed", "Success!", "success"); },
+                failure: function () { swal("Server isn't working...", "Error!", "error"); }
+            });
+        });
+
+        $('button.flex-c-m.stext-101.cl0.size-116.bg3.bor14.hov-btn3.p-lr-15.trans-04.pointer').click(function () {
+            $.ajax({
+                url: '/ShoppingCart/SellItems',
+                type: 'GET',                
+                dataType: 'json',
+                success: function (result) {
+                    if (result.success) {
+
+                        swal( "Success!", "The items was ordered", "success").then(function () {
+                            window.location.href = "http://localhost:50268" + result.url;
+                        });      
+                    }
+                    else {
+                        if (result.msg != null) {
+                            swal(result.msg, "Error!", "error");
+                        }
+                        swal("The items wasn't ordered", "Error!", "error");
+                    }
+                   
+                },
+                failure: function () { swal("Server isn't working...", "Error!", "error"); }
+            });
+        });
+    </script>
+    <!--===============================================================================================-->
+</body>
+</html>
