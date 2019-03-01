@@ -80,7 +80,6 @@
         else if ($(input).attr('name') == 'ConfirmPassword') {
             var pwd = $('input[name="Password"]').val();
            
-            alert($(input).val() + "   " + pwd);
             if ($(input).val() != pwd) {
                 // set focus
                 $(input).parent().removeClass('true-validate');

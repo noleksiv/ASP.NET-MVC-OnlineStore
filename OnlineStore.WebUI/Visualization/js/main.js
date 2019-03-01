@@ -159,7 +159,7 @@
     var filters = {};
     $('.filter-tope-group').each(function () {
         $('.filter-tope-group').on('click', 'button', function (event) {
-            //alert("gu")
+            
             var $button = $(event.currentTarget);
             // get group key
             var $buttonGroup = $button.parents('.filter-tope-group');
@@ -173,11 +173,7 @@
             $topeContainer.isotope({ filter: filterValue });
 
             $('#search').val("");
-            /*
-            var filterValue = $(this).attr('data-filter');
-            filterValue = filterFns[ filterValue ] || filterValue;
-            $topeContainer.isotope({ filter: filterValue });
-            */
+           
         });
 
     });
@@ -197,13 +193,13 @@
                 $buttonGroup.find('.filter-link-active').removeClass('filter-link-active');
                 var $button = $(event.currentTarget);
                 $button.addClass('filter-link-active');
-                //alert("filter")
+               
             }
             else {
                 $buttonGroup.find('.how-active1').removeClass('how-active1');
                 var $button = $(event.currentTarget);
                 $button.addClass('how-active1');
-                //alert("top menu")
+                
             }
             $('#search').val("");
         });
@@ -425,7 +421,7 @@
     }
 
     function divideByCountPrice(str) {
-        //alert(str);
+        
         var position = str.indexOf(" x ");
 
         return [str.substring(0, position), str.substring(position + 2, str.length).replace('$', '').replace(",", '.')]

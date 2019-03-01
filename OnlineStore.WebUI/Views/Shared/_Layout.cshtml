@@ -383,7 +383,6 @@
 
 
             function divideByCountPrice(str) {
-                //alert(str);
                 var position = str.indexOf(" x ");
 
                 return [str.substring(0, position), str.substring(position + 2, str.length).replace('$', '').replace(",", '.')]
@@ -395,8 +394,6 @@
                 var color = $(this).parent().find(".header-cart-item-color").text();
                 var size = $(this).parent().find(".header-cart-item-size").text();
                 var id = $(this).parent().find(".header-cart-item-id").text();
-
-                alert(id + size + color + name);
 
                 $(this).parent().remove();
                 totalSum();
