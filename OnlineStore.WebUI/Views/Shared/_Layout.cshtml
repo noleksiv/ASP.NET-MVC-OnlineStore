@@ -82,9 +82,11 @@
     <!--===============================================================================================-->
     <script src="@Url.Content("~/Visualization/vendor/MagnificPopup/jquery.magnific-popup.min.js")"></script>
     <script>
-        $('.gallery-lb').each(function () { // the containers for all your galleries
+        // the containers for all your galleries
+        $('.gallery-lb').each(function () { 
             $(this).magnificPopup({
-                delegate: 'a', // the selector for gallery item
+                // the selector for gallery item
+                delegate: 'a', 
                 type: 'image',
                 gallery: {
                     enabled: true
@@ -413,7 +415,6 @@
             }
             $.ajax({
                 url: '/Home/DeleteItemFromCart',
-                //contentType: 'application/json',
                 dataType: 'json',
                 data: { "json": JSON.stringify(arr) },
                 type: "POST"

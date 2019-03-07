@@ -15,11 +15,7 @@ using System.Web.Security;
 
 namespace OnlineStore.WebUI.Controllers
 {
-    /// <summary>
-    /// 1. search button in shop part
-    /// 7. upgrate registration (js)
-    /// 8. 
-    /// </summary>
+   
     public class HomeController : Controller
     {      
 
@@ -27,8 +23,8 @@ namespace OnlineStore.WebUI.Controllers
         MainPageParameters param = new MainPageParameters();
 
         public HomeController() {}
-        // GET: Home
 
+        // GET: Home
         [HttpGet]
         [AllowAnonymous]
         public ActionResult Index()
@@ -52,6 +48,7 @@ namespace OnlineStore.WebUI.Controllers
             param.Clothes = context.ShopItems.Include(s=>s.Sizes).Include(c=>c.Colors).Include(i=>i.Images).Take(8).ToList();
             param.BannerParam = banner;
             param.SliderParam = slider;
+
             // reset shop menu default select
             ShopItem.DefaultSelect = "All Products";
 
@@ -70,8 +67,6 @@ namespace OnlineStore.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult Login(UserAccount user)
         {
-            System.Diagnostics.Debug.WriteLine($"PostUser Email: {user.Email}\t pwd: {Converter.Hash(user.Password)}");
-
             var userPassword = Converter.Hash(user.Password);
             var obj = context.Users.Where(u => u.Email == user.Email && u.Password == userPassword).FirstOrDefault();
             if (obj is UserAccount)
@@ -96,36 +91,11 @@ namespace OnlineStore.WebUI.Controllers
         #endregion
 
 
-        #region Operations with a cart
-
-        //[HttpGet]
-        //public ActionResult ShoppingCart(string param)
-        //{
-        //    /*
-        //    System.Diagnostics.Debug.WriteLine("*********************************************");
-
-        //    List<Clothing> selectedItems = Converter.UrlToList(param);
-
-        //    foreach (var item in selectedItems)
-        //    {
-        //        System.Diagnostics.Debug.WriteLine(item.Name);
-        //    }
-
-        //    // custing a defective object to full
-        //    var checkItems      = wear.Join(selectedItems,
-        //                                w => w.Name_,
-        //                                i => i.Name,
-        //                                (w, i) => w + i
-        //                                ).ToList();
-        //    return View(checkItems);
-        //    */
-        //    return View();
-        //}
+        #region Operations with a cart        
 
         [HttpPost]
         public JsonResult ReceiveCartItems(string json)
         {
-            //System.Diagnostics.Debug.WriteLine(json);
             var items = JsonConvert.DeserializeObject<List<Clothing>>(json.ToString());
 
             // pass selected items to finally cart page
@@ -137,7 +107,6 @@ namespace OnlineStore.WebUI.Controllers
         {
             if (Session["UserName"] != null)
             {
-                //System.Diagnostics.Debug.WriteLine( Session["UserID"].ToString());
                 var sessionId = Session["UserID"].ToString();
 
                 var selectedClothes = context.Selected.Where(c => c.UserId.ToString() == sessionId).ToList();
@@ -200,28 +169,18 @@ namespace OnlineStore.WebUI.Controllers
         [HttpPost]
         public void DeleteItemFromCart(string json)
         {
-            System.Diagnostics.Debug.WriteLine("Length: " + json.Length + "\t" + json);
             var temp = JsonConvert.DeserializeObject<Clothing>(json);
-            System.Diagnostics.Debug.WriteLine(temp.Name);
             var removeObj = context.Selected.Where(e => e.Name == temp.Name && e.Size == temp.Size && e.Color == temp.Color).FirstOrDefault();
             context.Selected.Remove(removeObj);
             context.SaveChanges();
             // successfully
         }
 
-        #endregion
-
-
-        // for selected items
-
-        #region Operations with a wishlist
-
         [HttpGet]
         public JsonResult GetWishList()
         {
             if (Session["UserName"] != null)
             {
-                //System.Diagnostics.Debug.WriteLine( Session["UserID"].ToString());
                 var sessionId = Session["UserID"].ToString();
 
                 var wishedClothes = context.WhishList.Where(c => c.UserId.ToString() == sessionId).ToList();
@@ -232,7 +191,6 @@ namespace OnlineStore.WebUI.Controllers
                                         .Where(i => context.ShopItems.Any(cloth => cloth.Id == i.ClothId))
                                         .Select(i =>
                                         {
-                                            // adjusting the newest info
                                             var obj = context.ShopItems.First(c => c.Id == i.ClothId);
                                             obj.Color = i.Color;
                                             obj.Size = i.Size;
@@ -309,8 +267,6 @@ namespace OnlineStore.WebUI.Controllers
         [HttpPost]
         public ActionResult RemoveFromWishList(WishList wishItem)
         {
-            System.Diagnostics.Debug.WriteLine(wishItem.Id + "\t" + wishItem.Name);
-
             if (wishItem != null)
             {
                 var sessionId = Session["UserID"].ToString();
@@ -338,7 +294,6 @@ namespace OnlineStore.WebUI.Controllers
             }
 
         }
-
 
         #endregion
 

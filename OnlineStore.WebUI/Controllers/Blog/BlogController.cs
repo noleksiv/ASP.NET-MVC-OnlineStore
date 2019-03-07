@@ -13,8 +13,7 @@ using OnlineStore.Domain.Models;
 namespace OnlineStore.WebUI.Controllers.Blog
 {
     public class BlogController : Controller
-    {
-       
+    {       
         // GET: Blog
         public ActionResult Index()
         {

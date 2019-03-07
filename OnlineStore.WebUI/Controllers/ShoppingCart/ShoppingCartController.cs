@@ -120,7 +120,7 @@ namespace OnlineStore.WebUI.Controllers
                 {
                     (from s in selectedClothes
                      from i in context.ShopItems.Include(a => a.Colors).Include(a => a.Sizes).ToList()
-                     where i.Id == s.ClothId && i.Name == s.Name && i.Colors.Any(c => c.Name == s.Color) /* && ((i.Sizes.Count > 0) ? i.Sizes.Any(n => n.Name == s.Size) : s.Size.Length == 0)*/ && i.Quantity >= s.Number
+                     where i.Id == s.ClothId && i.Name == s.Name && i.Colors.Any(c => c.Name == s.Color) && i.Quantity >= s.Number
                      select i - s).ToList();
 
                     foreach (var selected in selectedClothes)

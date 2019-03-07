@@ -34,7 +34,6 @@ namespace OnlineStore.WebUI.App_Code
                 TagBuilder a = new TagBuilder("a");
                 TagBuilder li = new TagBuilder("li");
 
-                //a.Attributes["href"] = "/Home/" + item;
                 a.Attributes["href"] = $"/{item}/Index";
                 a.SetInnerText(item);                
 

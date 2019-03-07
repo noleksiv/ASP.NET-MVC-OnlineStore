@@ -18,9 +18,9 @@ namespace OnlineStore.WebUI
                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
            );
             routes.MapRoute(
-               "Example1",                                           // Route name
-               "{controller}/{action}",                            // URL with parameters
-               new { controller = "Home", action = "ShoppingCart" }  // Parameter defaults
+               "Example1",                                              // Route name
+               "{controller}/{action}",                                 // URL with parameters
+               new { controller = "Home", action = "ShoppingCart" }     // Parameter defaults
            );           
         }
     }

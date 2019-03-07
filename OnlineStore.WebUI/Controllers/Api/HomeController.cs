@@ -15,11 +15,7 @@ using System.Web;
 
 namespace OnlineStore.WebUI.Controllers.Api
 {
-    /// <summary>
-    /// 
-    /// add ...
-    /// 
-    /// </summary>
+    
     public class HomeController : ApiController
     {
         ApplicationContext context;       

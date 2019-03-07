@@ -35,8 +35,8 @@ namespace OnlineStore.WebUI.Controllers.Registration
             // Check if email already exist
             if (ModelState.IsValid)
             {
-
-                var isExist = /*IsEmailExist(user.Email);*/ false;
+                // for real project need to set isExist = IsEmailExist(user.Email);
+                var isExist = false;
                 if (isExist)
                 {
                     ModelState.AddModelError("EmailExist", "Email already exist");

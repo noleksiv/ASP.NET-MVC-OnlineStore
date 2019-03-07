@@ -18,15 +18,11 @@ namespace OnlineStore.WebUI.Database
         public DbSet<ItemImage> Images { get; set; }
 
         public DbSet<UserAccount> Users { get; set; }
-        //public DbSet<ClothesHeap> Clothes { get; set; }
         public DbSet<WishList> WhishList { get; set; }
         public DbSet<SelectedClothes> Selected  { get; set; }       
 
 
-        public ApplicationContext():base("DBConnection")
-        {
-            //Database.Initialize(true);
-        }
+        public ApplicationContext():base("DBConnection")    {}
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

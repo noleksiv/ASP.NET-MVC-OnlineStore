@@ -132,17 +132,7 @@
     [ Isotope ]*/
     var $topeContainer = $('.isotope-grid');
     var $filter = $('.filter-tope-group');
-
-    // filter items on button click
-    /*
-    $filter.each(function () {
-        $filter.on('click', 'button', function () {
-            var filterValue = $(this).attr('data-filter');
-            $topeContainer.isotope({filter: filterValue});
-        });
-        
-    });
-*/
+    
     // bind sort button click
     $('#sorts').on('click', 'button', function () {
         var sortByValue = $(this).attr('data-sort-by');
@@ -246,21 +236,7 @@
             });
         });
     });
-
-    /*
-    // clear selected options
-    var isotopeButton = $('.filter-tope-group button');
-
-    $(isotopeButton).each(function(){
-        $(this).on('click', function(){
-            for(var i=0; i<isotopeButton.length; i++) {
-                $(isotopeButton[i]).removeClass('how-active1');
-            }
-
-            $(this).addClass('how-active1');
-        });
-    });
-    */
+    
     /*==================================================================
 
     [ low-to-high]*/
